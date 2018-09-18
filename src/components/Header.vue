@@ -1,16 +1,25 @@
 <template>
   <nav class="navbar is-warning" role="navigation" aria-label="navigation">
-    <div class="navbar-menu">
+    <div class="navbar-brand">
+      <div class="navbar-item">
+        <h1>ALLATA-PONG</h1>
+      </div>
       <div class="navbar-start">
-        <router-link to="/">
-          <a class="navbar-item">Leaderboard</a>
-        </router-link>
-        <router-link to="/match">
-          <a class="navbar-item">Add Match</a>
-        </router-link>
-        <router-link to="/addplayer">
-          <a class="navbar-item">Add Player</a>
-        </router-link>
+          <a class="navbar-item">
+            <router-link to="/">
+                Leaderboard
+            </router-link>
+          </a>
+          <a class="navbar-item">
+            <router-link to="/match">
+                Add Match
+            </router-link>
+          </a>
+          <a class="navbar-item">
+            <router-link to="/addplayer">
+                Add Player
+            </router-link>
+          </a>
       </div>
   </div>
 </nav>
@@ -25,7 +34,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
   h3 {
     margin: 40px 0 0;
   }
@@ -36,5 +45,15 @@ export default {
   li {
     display: inline-block;
     margin: 0 10px;
+  }
+  a, a:visited {
+    color: rgb(63, 63, 63);
+  }
+  nav{
+    margin-bottom: 3%;
+  }
+  h1{
+    font-weight: bold;
+    font-size: 20pt;
   }
 </style>

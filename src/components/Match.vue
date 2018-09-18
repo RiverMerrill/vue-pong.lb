@@ -6,15 +6,18 @@
         <b-field class="column" label="Name:">
             <b-select v-model="winner.id" placeholder="Player Name">
               <option 
-                v-for="player in players"
+                v-for="player in winnerPlayers"
                 :value="player.id"
-                :key="player.id">
+                :key="player.id" v-if="player.id !== loser.id">
                 {{player.fullName}}
               </option>
             </b-select>
         </b-field>
         <b-field label="Points:" class="column">
-          <b-input v-model="winner.points"></b-input>
+          <b-input type="number" v-model="winner.points"></b-input>
+        </b-field>
+        <b-field label="Pin:" class="column">
+          <b-input type="password" maxlength="4" v-model="winner.pin"></b-input>
         </b-field>
         </div>
         <hr>
@@ -23,15 +26,18 @@
         <b-field class="column" label="Name:">
             <b-select v-model="loser.id" placeholder="Player Name">
               <option 
-                v-for="player in players"
+                v-for="player in loserPlayers"
                 :value="player.id"
-                :key="player.id">
+                :key="player.id" v-if="player.id !== winner.id">
                 {{player.fullName}}
               </option>
             </b-select>
         </b-field>
         <b-field label="Points:" class="column">
-          <b-input v-model="loser.points"></b-input>
+          <b-input type="number" v-model="loser.points"></b-input>
+        </b-field>
+        <b-field label="Pin:" class="column">
+          <b-input type="password" maxlength="4" v-model="loser.pin"></b-input>
         </b-field>
       </div>
       <button v-on:click="addMatch" class="button is-large is-warning">Add Match</button>
@@ -47,23 +53,29 @@ export default {
       return {
           winner: {},
           loser: {},
-          players: []
+          winnerPlayers: [],
+          loserPlayers: [],
+          allPlayers: []
       }
    },
   methods: {
     addMatch: function() {
-      axios.post('http://localhost:4200/addMatch', {winner: this.winner, loser: this.loser}).then(res => {
+      axios.post('http://10.0.0.245:4200/addMatch', {winner: this.winner, loser: this.loser}).then(res => {
         console.log(res);
         this.$router.push('/');
+      }, err => {
+        console.log(err);
       })
     }
   },
   mounted() {
-      axios.get('http://localhost:4200/getLeaderboard').then(res => {
-          this.players = res.data
-          this.players.forEach(player => {
+      axios.get('http://10.0.0.245:4200/getLeaderboard').then(res => {
+          this.allPlayers = res.data
+          this.allPlayers.forEach(player => {
             player.fullName = player.firstName + ' ' + player.lastName;
           })
+          this.winnerPlayers = this.allPlayers;
+          this.loserPlayers = this.allPlayers;
       })
   }
 };

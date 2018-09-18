@@ -1,5 +1,6 @@
 <template>
-  <b-table :data="leaderBoard" :columns="columns"></b-table>
+  <b-table :data="leaderBoard" :columns="columns" default-sort="rank" :default-sort-direction="'desc'">
+  </b-table>
 </template>
 
 <script>
@@ -13,29 +14,39 @@ export default {
       columns: [
         {
           field: 'firstName',
-          label: 'First Name'
+          label: 'First Name',
+          sortable: true
         },
         {
           field: 'lastName',
-          label: 'Last Name'
+          label: 'Last Name',
+          sortable: true
         },
         {
           field: 'points',
-          label: 'Points'
+          label: 'Points',
+          sortable: true
         },
         {
           field: 'wins',
-          label: 'Wins'
+          label: 'Wins',
+          sortable: true
         },
         {
           field: 'losses',
-          label: 'Losses'
+          label: 'Losses',
+          sortable: true
+        },
+        {
+          field: 'rank',
+          label: 'Rank',
+          sortable: true
         }
       ]
     };
   },
   mounted() {
-    axios({ method: "GET", url: "http://localhost:4200/getLeaderboard" }).then(
+    axios({ method: "GET", url: "http://10.0.0.245:4200/getLeaderboard" }).then(
       res => {
         this.leaderBoard = res.data;
       }
