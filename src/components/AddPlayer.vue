@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-      
+      <h1>Add a Player:</h1>
       <div class="columns">
         <b-field class="column" label="First Name">
             <b-input v-model="firstName"></b-input>
@@ -8,8 +8,13 @@
         <b-field class="column" label="Last Name">
             <b-input v-model="lastName"></b-input>
         </b-field>
+        <b-field class="column" label="4 Character Pin">
+            <b-input maxlength="4" type="password" v-model="pin"></b-input>
+        </b-field>
       </div>
       <button v-on:click="addPlayer" class="button is-large is-warning">Add Player</button>
+      <p v-if="error">ERROR: Please enter a valid pin</p>
+      <p v-if="playerExists">ERROR: Player already exists.  Try again.</p>
     </div>
 </template>
 
@@ -21,15 +26,24 @@ export default {
   data() {
     return {
       players: [],
-      firstName: "",
-      lastName: ""
+      firstName: '',
+      lastName: '',
+      pin: '',
+      error: false,
+      playerExists: false
     };
   },
   methods: {
     addPlayer: function() {
-      axios.post('http://localhost:4200/addPlayer', {firstName: this.firstName, lastName: this.lastName}).then(data => {
-        this.$router.push('/');
-      })
+      if (this.pin.length < 4) {
+        this.error = true;
+      } else{
+        axios.post('http://10.0.0.245:4200/addPlayer', {firstName: this.firstName, lastName: this.lastName, pin: this.pin}).then(data => {
+          this.$router.push('/');
+        }, err => {
+          this.playerExists = true;
+        })
+      }
     }
   }
 };
