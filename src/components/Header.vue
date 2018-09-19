@@ -4,25 +4,32 @@
       <div class="navbar-item">
         <h1>ALLATA-PONG</h1>
       </div>
+    </div>
+    <div class="navbar-menu">
       <div class="navbar-start">
-          <a class="navbar-item">
-            <router-link to="/">
-                Leaderboard
-            </router-link>
-          </a>
-          <a class="navbar-item">
-            <router-link to="/match">
-                Add Match
-            </router-link>
-          </a>
-          <a class="navbar-item">
-            <router-link to="/addplayer">
-                Add Player
-            </router-link>
-          </a>
+        <a class="navbar-item">
+          <router-link to="/">
+            Leaderboard
+          </router-link>
+        </a>
+        <a class="navbar-item">
+          <router-link to="/match">
+            Add Match
+          </router-link>
+        </a>
+        <a class="navbar-item">
+          <router-link to="/addplayer">
+            Add Player
+          </router-link>
+        </a>
       </div>
-  </div>
-</nav>
+      <div class="navbar-end">
+        <a href="https://github.com/RiverMerrill/vue-pong.lb/issues" class="navbar-item" target="_blank">
+          Request a Feature
+        </a>
+      </div>
+    </div>
+  </nav>
 </template>
 
 <script>
@@ -35,25 +42,29 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-  h3 {
-    margin: 40px 0 0;
-  }
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  li {
-    display: inline-block;
-    margin: 0 10px;
-  }
-  a, a:visited {
-    color: rgb(63, 63, 63);
-  }
-  nav{
-    margin-bottom: 3%;
-  }
-  h1{
-    font-weight: bold;
-    font-size: 20pt;
-  }
+h3 {
+  margin: 40px 0 0;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+a,
+a:visited {
+  color: rgb(63, 63, 63);
+}
+nav {
+  margin-bottom: 3%;
+}
+h1 {
+  font-weight: bold;
+  font-size: 20pt;
+}
+.navbar-end {
+  float: right !important;
+}
 </style>
