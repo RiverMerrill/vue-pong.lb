@@ -20,6 +20,7 @@
 
 <script>
 import axios from "axios";
+import { config } from "../../config.js";
 
 export default {
   name: "AddPlayer",
@@ -38,7 +39,7 @@ export default {
       if (this.pin.length < 4) {
         this.error = true;
       } else{
-        axios.post('http://10.0.0.245:4200/addPlayer', {firstName: this.firstName, lastName: this.lastName, pin: this.pin}).then(data => {
+        axios.post(config.ApiBaseUrl + 'addPlayer', {firstName: this.firstName, lastName: this.lastName, pin: this.pin}).then(data => {
           this.$router.push('/');
         }, err => {
           this.playerExists = true;

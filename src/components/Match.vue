@@ -46,6 +46,7 @@
 
 <script>
 import axios from "axios";
+import { config } from '../../config.js';
 
 export default {
   name: "Match",
@@ -60,7 +61,7 @@ export default {
    },
   methods: {
     addMatch: function() {
-      axios.post('http://10.0.0.245:4200/addMatch', {winner: this.winner, loser: this.loser}).then(res => {
+      axios.post(config.ApiBaseUrl + 'addMatch', {winner: this.winner, loser: this.loser}).then(res => {
         console.log(res);
         this.$router.push('/');
       }, err => {
@@ -69,7 +70,7 @@ export default {
     }
   },
   mounted() {
-      axios.get('http://10.0.0.245:4200/getLeaderboard').then(res => {
+      axios.get(config.ApiBaseUrl + '/getLeaderboard').then(res => {
           this.allPlayers = res.data
           this.allPlayers.forEach(player => {
             player.fullName = player.firstName + ' ' + player.lastName;

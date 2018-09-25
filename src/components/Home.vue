@@ -1,10 +1,14 @@
 <template>
   <b-table :data="leaderBoard" :columns="columns" default-sort="rank" :default-sort-direction="'desc'">
+    <b-table-column field="rank" label="Rank">
+      {{ columns.row.rank }}
+    </b-table-column>
   </b-table>
 </template>
 
 <script>
 import axios from "axios";
+import { config } from '../../config.js';
 
 export default {
   name: "Home",
@@ -46,7 +50,7 @@ export default {
     };
   },
   mounted() {
-    axios({ method: "GET", url: "http://10.0.0.245:4200/getLeaderboard" }).then(
+    axios({ method: "GET", url: config.ApiBaseUrl + "getLeaderboard" }).then(
       res => {
         this.leaderBoard = res.data;
       }
