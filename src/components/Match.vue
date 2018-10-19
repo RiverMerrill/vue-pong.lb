@@ -78,6 +78,10 @@ export default {
           this.winnerPlayers = this.allPlayers;
           this.loserPlayers = this.allPlayers;
       })
+    this.user = JSON.parse(sessionStorage.getItem('user'));
+    if (!this.user && this.$router.currentRoute.fullpath !== '/login') {
+      this.$router.push('/login');
+    }
   }
 };
 </script>

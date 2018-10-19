@@ -1,8 +1,8 @@
 <template>
   <b-table :data="leaderBoard" :columns="columns" default-sort="rank" :default-sort-direction="'desc'">
-    <b-table-column field="rank" label="Rank">
+    <!-- <b-table-column field="rank" label="Rank">
       {{ columns.row.rank }}
-    </b-table-column>
+    </b-table-column> -->
   </b-table>
 </template>
 
@@ -55,6 +55,10 @@ export default {
         this.leaderBoard = res.data;
       }
     );
+    this.user = JSON.parse(sessionStorage.getItem('user'));
+    if (!this.user && this.$router.currentRoute.fullpath !== '/login') {
+      this.$router.push('/login');
+    }
   }
 };
 </script>

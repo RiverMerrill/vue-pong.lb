@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-      <h1>Add a Player:</h1>
+      <h1>Please Login:</h1>
       <div class="columns">
         <b-field class="column" label="First Name">
             <b-input v-model="firstName"></b-input>
@@ -12,45 +12,33 @@
             <b-input maxlength="4" type="password" v-model="pin"></b-input>
         </b-field>
       </div>
-      <button v-on:click="addPlayer" class="button is-large is-warning">Add Player</button>
-      <p v-if="error">ERROR: Please enter a valid pin</p>
-      <p v-if="playerExists">ERROR: Player already exists.  Try again.</p>
+      <button v-on:click="login" class="button is-large is-warning">Login</button>
+      <p class="error" v-if="loginError">Incorrect username or pasword.  Please try again.</p>
     </div>
 </template>
 
 <script>
 import axios from "axios";
-import { config } from "../../config.js";
+import { config } from "../../config.js"
 
 export default {
   name: "AddPlayer",
   data() {
     return {
-      players: [],
       firstName: '',
       lastName: '',
       pin: '',
-      error: false,
-      playerExists: false
+      loginError: false
     };
   },
   methods: {
-    addPlayer: function() {
-      if (this.pin.length < 4) {
-        this.error = true;
-      } else{
-        axios.post(config.ApiBaseUrl + 'addPlayer', {firstName: this.firstName, lastName: this.lastName, pin: this.pin}).then(data => {
-          this.$router.push('/');
-        }, err => {
-          this.playerExists = true;
-        })
-      }
-    }
-  },
-  mounted() {
-    this.user = JSON.parse(sessionStorage.getItem('user'));
-    if (!this.user && this.$router.currentRoute.fullpath !== '/login') {
-      this.$router.push('/login');
+    login() {
+      axios.post(config.ApiBaseUrl + '/login', {firstName: this.firstName, lastName: this.lastName, pin: this.pin}).then(data => {
+        sessionStorage.setItem('user', JSON.stringify({firstName: this.firstName, lastName: this.lastName, pin: data.data}));
+        this.$router.push('/');
+      }, err => {
+        this.loginError = true;
+      })
     }
   }
 };
